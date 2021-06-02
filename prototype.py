@@ -1,7 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
 
-class Report:
+class SimulationRange():
+    def __init__(self, character):
+        self._simulations = []
+        self.character = character
+        return None
+
+    @property
+    def simulations(self):
+        return self._simulations
+
+    @simulations.setter
+    def simulations(self, new_simulation):
+        if not isinstance(new_simulation, Report):
+            raise AttributeError("Wrong type: {type(new_simulation}) instead of Report")
+        
+        self._simulations.append(new_simulations)
+
+class Report():
     def __init__(self, url):
         self.url = url 
 
