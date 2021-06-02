@@ -17,6 +17,6 @@ class Report:
     def convert_report_to_xml(self):
         return None
 
-if __name__="__MAIN__":
+if __name__ == "__MAIN__":
     url_test = "https://www.raidbots.com/simbot/report/w55rdJY7HwiAjqkmWJzxGU" 
     report = Report(url_test)
