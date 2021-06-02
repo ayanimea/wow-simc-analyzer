@@ -12,11 +12,12 @@ class Report:
         html_text = requests.get(self.url).text
         soup = BeautifulSoup(html_text, 'html.parser')
 
-        return f'{soup.title}'
+        return f'{soup.title.encode("utf-8")}'
 
     def convert_report_to_xml(self):
         return None
 
-if __name__ == "__MAIN__":
+if __name__ == "__main__":
     url_test = "https://www.raidbots.com/simbot/report/w55rdJY7HwiAjqkmWJzxGU" 
     report = Report(url_test)
+    print(report.read_report())
