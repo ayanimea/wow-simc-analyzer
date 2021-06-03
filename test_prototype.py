@@ -6,8 +6,10 @@ from prototype import Report
 def test_read_report():
     test_url = 'http://perdu.com'
     report = Report(test_url)
-    title = report.read_report()
-    assert (title == 'b\'<title>Vous Etes Perdu ?</title>\'') 
+    raw_report = report.read_report()
+    assert (raw_report.head.encode("utf-8") == b'<head><title>Vous Etes Perdu ?</title></head>')
+    assert (raw_report.title.encode("utf-8") == b'<title>Vous Etes Perdu ?</title>') 
+    assert (raw_report.body.encode("utf-8") == b"<body><h1>Perdu sur l'Internet ?</h1><h2>Pas de panique, on va vous aider</h2><strong><pre>    * &lt;----- vous \xc3\xaates ici</pre></strong></body>") 
 
 def test_convert_report_to_xls():
     test_url = 'http://perdu.com'

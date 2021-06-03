@@ -29,9 +29,8 @@ class Report():
     def read_report(self):
         html_content = requests.get(self.url).text
         soup = BeautifulSoup(html_content, 'html.parser')
-        # import pdb; pdb.set_trace()
 
-        return f'{soup.title.encode("utf-8")}'
+        return soup
 
     def convert_report_to_xls(self, output_filepath):
         wb = openpyxl.Workbook(output_filepath)
