@@ -1,4 +1,5 @@
 import requests
+import openpyxl
 from bs4 import BeautifulSoup
 
 class SimulationRange():
@@ -20,18 +21,22 @@ class SimulationRange():
 
 class Report():
     def __init__(self, url):
-        self.url = url 
+        self.url = url
 
     def create_report(self):
         return None
 
     def read_report(self):
-        html_text = requests.get(self.url).text
-        soup = BeautifulSoup(html_text, 'html.parser')
+        html_content = requests.get(self.url).text
+        soup = BeautifulSoup(html_content, 'html.parser')
+        # import pdb; pdb.set_trace()
 
         return f'{soup.title.encode("utf-8")}'
 
-    def convert_report_to_xml(self):
+    def convert_report_to_xls(self, output_filepath):
+        wb = openpyxl.Workbook(output_filepath)
+        wb.create_sheet('Raw report')
+        wb.save(output_filepath)
         return None
 
 if __name__ == "__main__":
