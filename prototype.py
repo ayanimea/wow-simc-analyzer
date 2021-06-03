@@ -24,6 +24,7 @@ class Report():
         self.url = url
 
     def create_report(self):
+        raise NotImplementedError("For when we'll run our own simulationcraft sims")
         return None
 
     def read_report(self):
@@ -31,6 +32,10 @@ class Report():
         soup = BeautifulSoup(html_content, 'html.parser')
 
         return soup
+
+    def soup_raidbots_to_json(self, soup):
+
+        return None
 
     def convert_report_to_xls(self, output_filepath):
         wb = openpyxl.Workbook(output_filepath)
@@ -41,4 +46,5 @@ class Report():
 if __name__ == "__main__":
     url_test = "https://www.raidbots.com/simbot/report/w55rdJY7HwiAjqkmWJzxGU" 
     report = Report(url_test)
-    print(report.read_report())
+    soup = report.read_report()
+    json_report = report.soup_raidbots_to_json(soup)

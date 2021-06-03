@@ -7,9 +7,11 @@ def test_read_report():
     test_url = 'http://perdu.com'
     report = Report(test_url)
     raw_report = report.read_report()
-    assert (raw_report.head.encode("utf-8") == b'<head><title>Vous Etes Perdu ?</title></head>')
-    assert (raw_report.title.encode("utf-8") == b'<title>Vous Etes Perdu ?</title>') 
-    assert (raw_report.body.encode("utf-8") == b"<body><h1>Perdu sur l'Internet ?</h1><h2>Pas de panique, on va vous aider</h2><strong><pre>    * &lt;----- vous \xc3\xaates ici</pre></strong></body>") 
+    assert(raw_report.head.encode("utf-8") == b'<head><title>Vous Etes Perdu ?</title></head>')
+    assert(raw_report.title.encode("utf-8") == b'<title>Vous Etes Perdu ?</title>') 
+    assert(raw_report.body.encode("utf-8") == b"<body><h1>Perdu sur l'Internet ?</h1><h2>Pas de "\
+                                              b"panique, on va vous aider</h2><strong><pre>    * "\
+                                              b"&lt;----- vous \xc3\xaates ici</pre></strong></body>") 
 
 def test_convert_report_to_xls():
     test_url = 'http://perdu.com'
@@ -23,3 +25,13 @@ def test_convert_report_to_xls():
     finally:
         if os.path.exists(path):
             os.remove(path)
+
+
+def test_soup_raidbots_to_json():
+    test_url = 'http://perdu.com'
+    report = Report(test_url)
+    soup_instance = report.read_report()
+
+    # TODO: Don't depend on read_report fct
+    json_report = report.soup_raidbots_to_json(soup_instance)
+    assert(json_report)
